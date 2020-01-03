@@ -20,7 +20,10 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="CameraScript.cs" t="Include" />
+          <e p="MainGenerator.cs" t="Include" />
           <e p="PlayerMovement.cs" t="Include" />
+          <e p="ZoneDev.cs" t="Include" />
         </e>
       </e>
       <e p="LightLeak.sln" t="IncludeFlat" />
