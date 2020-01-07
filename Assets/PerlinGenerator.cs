@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 
 public class PerlinGenerator : MonoBehaviour
 {
+    public static PerlinGenerator instance = null;
+    
     public int perlinTextureSizeX;
     public int perlinTextureSizeY;
     public bool randomizeNoiseOffset;
@@ -20,16 +22,22 @@ public class PerlinGenerator : MonoBehaviour
     public float visualizationHeightScale = 5f;
     public RawImage visualizationUI;
 
+    public float seaLevel;
+    public RawImage visualizationUI_Colors;
 
     private Texture2D perlinTexture;
-
-    private void Start()
-    {
-        Generate();
-    }
-
+    private GameObject visualizationParent = null;
     public void Generate()
     {
+        if (visualizationParent == null)
+        {
+            visualizationParent = new GameObject("VisualizationParent");
+        }
+        else if (visualizationParent != null)
+        {
+            Destroy(visualizationParent);
+        }
+        
         GenerateNoise();
         if (visualizeGrid)
         {
@@ -71,27 +79,82 @@ public class PerlinGenerator : MonoBehaviour
 
     private void VisualizeGrid()
     {
-        GameObject visualizationParent = new GameObject("VisualizationParent");
         visualizationParent.transform.SetParent(this.transform);
+        
+        Dictionary<float, Color> islandTypes = new Dictionary<float, Color>();
+        Dictionary<Vector2,float> nodes = new Dictionary<Vector2, float>();
 
         for (int x = 0; x < perlinGridStepSizeX; x++)
         {
             for (int y = 0; y < perlinGridStepSizeY; y++)
             {
-                float i = SampleStepped(x, y) * visualizationHeightScale;
+                Vector2 current = new Vector2(x, y);
+                float h = SampleStepped(x, y) * visualizationHeightScale;
                 
                 GameObject clone = Instantiate(visualizationCube, 
-                    new Vector3(x, i, y) 
+                    new Vector3(x, h, y) 
                     + transform.position, transform.rotation);
 
-                clone.transform.localScale = new Vector3(1,i,1);
+                if (h > seaLevel)
+                {
+                    // Check Neighbors
+                    bool neighborFound = false;
+                    for (int i = x - 1; i < x + 2; i++)
+                    {
+                        for (int j = y - 1; j < y + 2; j++)
+                        {
+                            if (neighborFound) continue;
+                            
+                            
+                            Vector2 proposed = new Vector2(i,j);
+                            float proposedHeight = SampleStepped(i, j) * visualizationHeightScale;
+                                                        
+                            if (current != proposed && nodes.ContainsKey(proposed) && proposedHeight > seaLevel)
+                            {
+                                neighborFound = true;
+                                nodes.Add(current,nodes[proposed]);
+                            }
+    
+                        } 
+                    }
+
+                    bool foundingNode = false;
+                    if (!neighborFound)
+                    {
+                        // Start new island
+                        Color randomColor = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+                        float islandType = Random.Range(0f, 99999f);
+                        Debug.Log("Adding new island " + islandType);
+                        islandTypes.Add(islandType,randomColor);
+                        nodes.Add(current, islandType);
+                        foundingNode = true;
+                    }
+
+                    if (foundingNode)
+                    {
+                        clone.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.white);
+                    }
+                    else
+                    {
+                        clone.GetComponent<MeshRenderer>().material.SetColor("_Color", islandTypes[nodes[current]]);
+                    }
+                    
+                }
+                else
+                {
+                    clone.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.black);
+                }
+                
+                
+                //clone.transform.localScale = new Vector3(1,i,1);
                 clone.transform.SetParent(visualizationParent.transform);
                 //GeneratedObjectControl.instance.AddObject(clone);
             }
         }
 
         visualizationParent.transform.position = 
-            new Vector3(-perlinGridStepSizeX * .5f, -visualizationHeightScale * .5f, -perlinGridStepSizeY * .5f);
+            new Vector3(-perlinGridStepSizeX * .5f, 0, -perlinGridStepSizeY * .5f);
+     // visualizationParent.transform.position = new Vector3(-perlinGridStepSizeX * .5f, -visualizationHeightScale * .5f, -perlinGridStepSizeY * .5f);   
     }
 
     private float SampleStepped(int x, int y)
