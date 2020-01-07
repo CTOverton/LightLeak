@@ -9,6 +9,7 @@
       <e p="Assets" t="Include">
         <e p="GameManager.cs" t="Include" />
         <e p="InputActions.cs" t="Include" />
+        <e p="PerlinGenerator.cs" t="Include" />
         <e p="Plugins" t="Include">
           <e p="GitHub" t="Include">
             <e p="Editor" t="Include">
@@ -23,8 +24,10 @@
           <e p="CameraScript.cs" t="Include" />
           <e p="MainGenerator.cs" t="Include" />
           <e p="PlayerMovement.cs" t="Include" />
+          <e p="Zone_Trigger.cs" t="Include" />
           <e p="ZoneDev.cs" t="Include" />
         </e>
+        <e p="ZoneController.cs" t="Include" />
       </e>
       <e p="LightLeak.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />
