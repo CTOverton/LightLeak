@@ -41,10 +41,13 @@ public class PerlinGenerator : MonoBehaviour
         GenerateNoise();
         if (visualizeGrid)
         {
-            VisualizeGrid();
+            StartCoroutine(VisualizeGrid());
+            //VisualizeGrid_BETTER();
         }
     }
+
     
+
     private void GenerateNoise()
     {
         if (randomizeNoiseOffset)
@@ -77,7 +80,7 @@ public class PerlinGenerator : MonoBehaviour
         return perlinColor;
     }
 
-    private void VisualizeGrid()
+    private IEnumerator  VisualizeGrid()
     {
         visualizationParent.transform.SetParent(this.transform);
         
@@ -149,6 +152,7 @@ public class PerlinGenerator : MonoBehaviour
                 //clone.transform.localScale = new Vector3(1,i,1);
                 clone.transform.SetParent(visualizationParent.transform);
                 //GeneratedObjectControl.instance.AddObject(clone);
+                yield return new WaitForSecondsRealtime(0.0000000000001f);
             }
         }
 
@@ -156,7 +160,11 @@ public class PerlinGenerator : MonoBehaviour
             new Vector3(-perlinGridStepSizeX * .5f, 0, -perlinGridStepSizeY * .5f);
      // visualizationParent.transform.position = new Vector3(-perlinGridStepSizeX * .5f, -visualizationHeightScale * .5f, -perlinGridStepSizeY * .5f);   
     }
-
+    
+    private void VisualizeGrid_BETTER()
+    {
+        Debug.Log("Yeet");
+    }
     private float SampleStepped(int x, int y)
     {
         int gridStepSizeX = perlinTextureSizeX / perlinGridStepSizeX;

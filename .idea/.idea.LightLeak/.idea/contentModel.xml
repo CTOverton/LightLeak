@@ -21,6 +21,7 @@
             </e>
           </e>
         </e>
+        <e p="Rise.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="CameraScript.cs" t="Include" />
           <e p="MainGenerator.cs" t="Include" />
