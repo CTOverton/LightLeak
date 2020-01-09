@@ -165,6 +165,8 @@ MonoBehaviour:
   visualizationUI: {fileID: 1146137817}
   seaLevel: 8
   visualizationUI_Colors: {fileID: 907260512}
+  AlgorithmVisual: {fileID: 966575858650448417, guid: 6d42d0bda3b8b944ea813645839ae298,
+    type: 3}
 --- !u!4 &364464697
 Transform:
   m_ObjectHideFlags: 0

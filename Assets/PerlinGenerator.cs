@@ -26,8 +26,13 @@ public class PerlinGenerator : MonoBehaviour
     public float seaLevel;
     public RawImage visualizationUI_Colors;
 
+    public GameObject AlgorithmVisual;
+    private GameObject ActiveAlgorithmVisual;
+
     private Texture2D perlinTexture;
     private GameObject visualizationParent = null;
+    
+    private Dictionary<Vector2, Color> nodes = new Dictionary<Vector2, Color>();
     public void Generate()
     {
         if (visualizationParent == null)
@@ -164,56 +169,64 @@ public class PerlinGenerator : MonoBehaviour
     IEnumerator VisualizeGrid_BETTER()
     {
 
+        ActiveAlgorithmVisual = Instantiate(AlgorithmVisual, transform.position, transform.rotation);
+        ActiveAlgorithmVisual.transform.SetParent(this.transform);
+        
         // Loop for grid size
         for (int x = 0; x < perlinGridStepSizeX; x++)
         {
             for (int y = 0; y < perlinTextureSizeY; y++)
             {
+                Debug.Log("Starting new Check");
                 Vector2 current = new Vector2(x, y);
                 float perlinHeight = SampleStepped(x, y) * visualizationHeightScale;
                 
-                Dictionary<Vector2, float> nodes = new Dictionary<Vector2, float>();
-                check(x,y,nodes, Random.Range(0,999999));
+                ActiveAlgorithmVisual.transform.position = new Vector3(x,perlinHeight,y);
+                
+                
+                StartCoroutine(check(x,y, Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f)));
                 yield return new WaitForFixedUpdate();
             }
         }
     }
 
-    private void check(int x, int y, Dictionary<Vector2, float> nodes, float islandType)
+    IEnumerator check(int x, int y, Color islandType)
     {
+        yield return new WaitForSecondsRealtime(0.1f);
         Vector2 current = new Vector2(x,y);
         float perlinHeight = SampleStepped(x, y) * visualizationHeightScale;
         
-        if (nodes.ContainsKey(current) || perlinHeight < seaLevel) return;
+        ActiveAlgorithmVisual.transform.position = new Vector3(x,perlinHeight,y);
         
-        nodes.Add(current,islandType);
-        StartCoroutine(GenCube(x,perlinHeight, y));
-        
-        // Check surrounding Nodes
-        for (int i = 0; i <= x-1; i++)
+        if (!(nodes.ContainsKey(current) || perlinHeight < seaLevel))
         {
-            for (int j = 0; j <= y-1; j++)
+            nodes.Add(current,islandType);
+            GenCube(x, perlinHeight, y, islandType);
+            
+            // Check surrounding Nodes
+            for (int i = x-1; i <= x+1; i++)
             {
-                if ((i >= 0 && i <= perlinGridStepSizeX) && (j >= 0 && j <= perlinGridStepSizeY))
+                for (int j = y-1; j <= y+1; j++)
                 {
-                    check(i, j, nodes, islandType);
+                    if ((i >= 0 && i <= perlinGridStepSizeX) && (j >= 0 && j <= perlinGridStepSizeY) && new Vector2(i,j) != current)
+                    {
+                        StartCoroutine(check(i, j, islandType));
+                    }
                 }
             }
         }
         
-        
+        Debug.Log("Done checking");
     }
 
-    IEnumerator GenCube(float x, float y, float z)
+    void GenCube(float x, float y, float z, Color color)
     {
         GameObject clone = Instantiate(
             visualizationCube, 
             new Vector3(x, y, z) + transform.position, transform.rotation
             );
-        
+        clone.GetComponent<MeshRenderer>().material.SetColor("_Color", color);
         clone.transform.SetParent(visualizationParent.transform);
-        
-        yield return new WaitForFixedUpdate();
     }
     
     private float SampleStepped(int x, int y)
