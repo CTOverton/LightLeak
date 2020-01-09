@@ -4,8 +4,9 @@
     <list default="true" id="dddb3c5c-1b9e-447b-9700-f42779704d7f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LightLeak/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LightLeak/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LightLeak/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LightLeak/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Perlin Ex/Cube.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Perlin Ex/Cube.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/PerlinGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PerlinGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rise.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Rise.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Perlin Noise Ex.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Perlin Noise Ex.unity" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,6 +23,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/MainGenerator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Rise.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/PerlinGenerator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/discordex2.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ZoneDev.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/ZoneController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Zone_Trigger.cs" root0="FORCE_HIGHLIGHTING" />
@@ -38,6 +40,7 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/MainGenerator.cs" />
         <option value="$PROJECT_DIR$/Assets/ZoneController.cs" />
         <option value="$PROJECT_DIR$/Assets/DiscordExample.cs" />
+        <option value="$PROJECT_DIR$/Assets/discordex2.cs" />
         <option value="$PROJECT_DIR$/Assets/Rise.cs" />
         <option value="$PROJECT_DIR$/Assets/PerlinGenerator.cs" />
       </list>
@@ -102,7 +105,8 @@
       <workItem from="1577987881665" duration="21184000" />
       <workItem from="1578080855077" duration="4064000" />
       <workItem from="1578334462213" duration="12251000" />
-      <workItem from="1578453229973" duration="4032000" />
+      <workItem from="1578453229973" duration="4232000" />
+      <workItem from="1578594664937" duration="2020000" />
     </task>
     <servers />
   </component>
