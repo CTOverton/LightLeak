@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dddb3c5c-1b9e-447b-9700-f42779704d7f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.LightLeak/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LightLeak/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LightLeak/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LightLeak/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/PerlinGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PerlinGenerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Rise.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Rise.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Perlin Noise Ex.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Perlin Noise Ex.unity" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -106,7 +104,7 @@
       <workItem from="1578080855077" duration="4064000" />
       <workItem from="1578334462213" duration="12251000" />
       <workItem from="1578453229973" duration="4232000" />
-      <workItem from="1578594664937" duration="2020000" />
+      <workItem from="1578594664937" duration="6758000" />
     </task>
     <servers />
   </component>
