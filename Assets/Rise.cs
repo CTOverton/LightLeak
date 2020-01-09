@@ -14,7 +14,7 @@ public class Rise : MonoBehaviour
     
     void Update()
     {
-        transform.position += new Vector3(0,10f,0) * Time.deltaTime;
+        transform.position += new Vector3(0,20f,0) * Time.deltaTime;
 
         if (transform.position.y > destination)
         {

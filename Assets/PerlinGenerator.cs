@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -32,6 +33,7 @@ public class PerlinGenerator : MonoBehaviour
         if (visualizationParent == null)
         {
             visualizationParent = new GameObject("VisualizationParent");
+            visualizationParent.transform.SetParent(this.transform);
         }
         else if (visualizationParent != null)
         {
@@ -41,8 +43,8 @@ public class PerlinGenerator : MonoBehaviour
         GenerateNoise();
         if (visualizeGrid)
         {
-            StartCoroutine(VisualizeGrid());
-            //VisualizeGrid_BETTER();
+//            StartCoroutine(VisualizeGrid());
+            StartCoroutine(VisualizeGrid_BETTER());
         }
     }
 
@@ -82,8 +84,6 @@ public class PerlinGenerator : MonoBehaviour
 
     private IEnumerator  VisualizeGrid()
     {
-        visualizationParent.transform.SetParent(this.transform);
-        
         Dictionary<float, Color> islandTypes = new Dictionary<float, Color>();
         Dictionary<Vector2,float> nodes = new Dictionary<Vector2, float>();
 
@@ -152,19 +152,70 @@ public class PerlinGenerator : MonoBehaviour
                 //clone.transform.localScale = new Vector3(1,i,1);
                 clone.transform.SetParent(visualizationParent.transform);
                 //GeneratedObjectControl.instance.AddObject(clone);
-                yield return new WaitForSecondsRealtime(0.0000000000001f);
+                yield return new WaitForFixedUpdate();
             }
         }
 
-        visualizationParent.transform.position = 
-            new Vector3(-perlinGridStepSizeX * .5f, 0, -perlinGridStepSizeY * .5f);
+        /*visualizationParent.transform.position = 
+            new Vector3(-perlinGridStepSizeX * .5f, 0, -perlinGridStepSizeY * .5f);*/
      // visualizationParent.transform.position = new Vector3(-perlinGridStepSizeX * .5f, -visualizationHeightScale * .5f, -perlinGridStepSizeY * .5f);   
     }
     
-    private void VisualizeGrid_BETTER()
+    IEnumerator VisualizeGrid_BETTER()
     {
-        Debug.Log("Yeet");
+
+        // Loop for grid size
+        for (int x = 0; x < perlinGridStepSizeX; x++)
+        {
+            for (int y = 0; y < perlinTextureSizeY; y++)
+            {
+                Vector2 current = new Vector2(x, y);
+                float perlinHeight = SampleStepped(x, y) * visualizationHeightScale;
+                
+                Dictionary<Vector2, float> nodes = new Dictionary<Vector2, float>();
+                check(x,y,nodes, Random.Range(0,999999));
+                yield return new WaitForFixedUpdate();
+            }
+        }
     }
+
+    private void check(int x, int y, Dictionary<Vector2, float> nodes, float islandType)
+    {
+        Vector2 current = new Vector2(x,y);
+        float perlinHeight = SampleStepped(x, y) * visualizationHeightScale;
+        
+        if (nodes.ContainsKey(current) || perlinHeight < seaLevel) return;
+        
+        nodes.Add(current,islandType);
+        StartCoroutine(GenCube(x,perlinHeight, y));
+        
+        // Check surrounding Nodes
+        for (int i = 0; i <= x-1; i++)
+        {
+            for (int j = 0; j <= y-1; j++)
+            {
+                if ((i >= 0 && i <= perlinGridStepSizeX) && (j >= 0 && j <= perlinGridStepSizeY))
+                {
+                    check(i, j, nodes, islandType);
+                }
+            }
+        }
+        
+        
+    }
+
+    IEnumerator GenCube(float x, float y, float z)
+    {
+        GameObject clone = Instantiate(
+            visualizationCube, 
+            new Vector3(x, y, z) + transform.position, transform.rotation
+            );
+        
+        clone.transform.SetParent(visualizationParent.transform);
+        
+        yield return new WaitForFixedUpdate();
+    }
+    
     private float SampleStepped(int x, int y)
     {
         int gridStepSizeX = perlinTextureSizeX / perlinGridStepSizeX;
