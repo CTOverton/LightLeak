@@ -175,7 +175,7 @@ public class PerlinGenerator : MonoBehaviour
         // Loop for grid size
         for (int x = 0; x < perlinGridStepSizeX; x++)
         {
-            for (int y = 0; y < perlinTextureSizeY; y++)
+            for (int y = 0; y < perlinGridStepSizeY; y++)
             {
                 Debug.Log("Starting new Check");
                 Vector2 current = new Vector2(x, y);
@@ -185,14 +185,16 @@ public class PerlinGenerator : MonoBehaviour
                 
                 
                 StartCoroutine(check(x,y, Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f)));
-                yield return new WaitForFixedUpdate();
+//                yield return new WaitForFixedUpdate();
+                yield return null;
             }
         }
     }
 
     IEnumerator check(int x, int y, Color islandType)
     {
-        yield return new WaitForSecondsRealtime(0.1f);
+//        yield return new WaitForSecondsRealtime(0.1f);
+        yield return null;
         Vector2 current = new Vector2(x,y);
         float perlinHeight = SampleStepped(x, y) * visualizationHeightScale;
         
