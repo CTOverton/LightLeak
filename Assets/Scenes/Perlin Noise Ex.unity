@@ -155,15 +155,15 @@ MonoBehaviour:
   perlinTextureSizeY: 256
   randomizeNoiseOffset: 1
   perlinOffset: {x: 92069, y: 14720}
-  noiseScale: 12
+  noiseScale: 16
   perlinGridStepSizeX: 80
   perlinGridStepSizeY: 80
   visualizeGrid: 1
   visualizationCube: {fileID: 966575858650448417, guid: 97d30850ccf6c1e4c9df2267e94a2973,
     type: 3}
-  visualizationHeightScale: 15
+  visualizationHeightScale: 12
   visualizationUI: {fileID: 1146137817}
-  seaLevel: 8
+  seaLevel: 6
   visualizationUI_Colors: {fileID: 907260512}
   AlgorithmVisual: {fileID: 966575858650448417, guid: 6d42d0bda3b8b944ea813645839ae298,
     type: 3}
@@ -315,7 +315,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 384068030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40, y: 8, z: 40}
+  m_LocalPosition: {x: 40, y: 6, z: 40}
   m_LocalScale: {x: 80, y: 1, z: 80}
   m_Children: []
   m_Father: {fileID: 0}
