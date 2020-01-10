@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 
 public class PerlinGenerator : MonoBehaviour
@@ -27,12 +29,14 @@ public class PerlinGenerator : MonoBehaviour
     public RawImage visualizationUI_Colors;
 
     public GameObject AlgorithmVisual;
+
+    public GameObject tree;
     private GameObject ActiveAlgorithmVisual;
 
     private Texture2D perlinTexture;
     private GameObject visualizationParent = null;
     
-    private Dictionary<Vector2, Color> nodes = new Dictionary<Vector2, Color>();
+    private Dictionary<Vector2, String> nodes = new Dictionary<Vector2, String>();
 
     private void Start()
     {
@@ -57,7 +61,6 @@ public class PerlinGenerator : MonoBehaviour
 //            StartCoroutine(VisualizeGrid());
 //            StartCoroutine(VisualizeGrid_BETTER());
             VisualizeGrid_BETTER();
-//        Debug.Log("Generate!");
         }
     }
 
@@ -180,6 +183,9 @@ public class PerlinGenerator : MonoBehaviour
 //        ActiveAlgorithmVisual = Instantiate(AlgorithmVisual, transform.position, transform.rotation);
 //        ActiveAlgorithmVisual.transform.SetParent(this.transform);
         
+        String[] Islands = new[] {"Trees", "Rocks", "Bedrock"};
+
+
         // Loop for grid size
         for (int x = 0; x < perlinGridStepSizeX; x++)
         {
@@ -190,8 +196,8 @@ public class PerlinGenerator : MonoBehaviour
                 float perlinHeight = SampleStepped(x, y) * visualizationHeightScale;
                 
 //                ActiveAlgorithmVisual.transform.position = new Vector3(x,perlinHeight,y);
-
-                check(x, y, Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f));
+                check(x, y, Islands[Random.Range(0,Islands.Length)]);
+//                check(x, y, Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f));
 //                StartCoroutine(check(x,y, Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f)));
 //                yield return new WaitForFixedUpdate();
 //                yield return null;
@@ -200,7 +206,7 @@ public class PerlinGenerator : MonoBehaviour
         Debug.Log("Done");
     }
 
-    void check(int x, int y, Color islandType)
+    void check(int x, int y, String islandType)
     {
 //        yield return new WaitForSecondsRealtime(0.1f);
 //        yield return null;
@@ -231,14 +237,50 @@ public class PerlinGenerator : MonoBehaviour
 //        Debug.Log("Done checking");
     }
 
-    void GenCube(float x, float y, float z, Color color)
+    void GenCube(float x, float y, float z, String type)
     {
-        GameObject clone = Instantiate(
+
+
+        switch (type)
+        {
+            case "Trees":
+                if (Random.Range(0f,1f) < 0.5)
+                {
+                    GameObject treeClone = Instantiate(
+                                        tree, 
+                                        new Vector3(x, seaLevel+1, z) + transform.position, transform.rotation
+                                    );
+                                    treeClone.transform.SetParent(visualizationParent.transform);
+                }
+                
+                break;
+            case "Rocks":
+                GameObject clone = Instantiate(
+                    visualizationCube, 
+                    new Vector3(x, y, z) + transform.position, transform.rotation
+                );
+                clone.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.gray);
+                clone.transform.SetParent(visualizationParent.transform);
+                break;
+            case "Bedrock":
+                GameObject Bedrock = Instantiate(
+                    visualizationCube, 
+                    new Vector3(x, y, z) + transform.position, transform.rotation
+                );
+                Bedrock.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.black);
+                Bedrock.transform.SetParent(visualizationParent.transform);
+                
+                break;
+            default:
+                break;
+        }
+        
+        /*GameObject clone = Instantiate(
             visualizationCube, 
             new Vector3(x, y, z) + transform.position, transform.rotation
             );
-        clone.GetComponent<MeshRenderer>().material.SetColor("_Color", color);
-        clone.transform.SetParent(visualizationParent.transform);
+        clone.GetComponent<MeshRenderer>().material.SetColor("_Color", type);
+        clone.transform.SetParent(visualizationParent.transform);*/
 //        Debug.Log("X: " + x + " Y: " + y + " Z: " + z + " Color: " + color);
     }
     

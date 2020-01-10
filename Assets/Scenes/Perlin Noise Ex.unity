@@ -167,6 +167,7 @@ MonoBehaviour:
   visualizationUI_Colors: {fileID: 907260512}
   AlgorithmVisual: {fileID: 966575858650448417, guid: 6d42d0bda3b8b944ea813645839ae298,
     type: 3}
+  tree: {fileID: 8021633041792568857, guid: 941f4d1f9894ee143921ad7d6d68bbb1, type: 3}
 --- !u!4 &364464697
 Transform:
   m_ObjectHideFlags: 0
