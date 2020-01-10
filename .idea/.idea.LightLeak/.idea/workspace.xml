@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dddb3c5c-1b9e-447b-9700-f42779704d7f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.LightLeak/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LightLeak/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PerlinGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PerlinGenerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" afterDir="false" />
-    </list>
+    <list default="true" id="dddb3c5c-1b9e-447b-9700-f42779704d7f" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +103,7 @@
       <workItem from="1578334462213" duration="12251000" />
       <workItem from="1578453229973" duration="4232000" />
       <workItem from="1578594664937" duration="11421000" />
-      <workItem from="1578622229820" duration="2341000" />
+      <workItem from="1578622229820" duration="2858000" />
     </task>
     <servers />
   </component>
@@ -140,19 +135,6 @@
           <properties exception="System.Threading.ThreadAbortException" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/PerlinGenerator.cs</url>
-          <line>193</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/PerlinGenerator.cs" initialLine="193">
-            <startOffsets>
-              <option value="6793" />
-            </startOffsets>
-            <endOffsets>
-              <option value="6848" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

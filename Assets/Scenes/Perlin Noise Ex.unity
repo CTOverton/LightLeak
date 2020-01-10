@@ -155,7 +155,7 @@ MonoBehaviour:
   perlinTextureSizeY: 256
   randomizeNoiseOffset: 1
   perlinOffset: {x: 92069, y: 14720}
-  noiseScale: 10
+  noiseScale: 12
   perlinGridStepSizeX: 80
   perlinGridStepSizeY: 80
   visualizeGrid: 1
