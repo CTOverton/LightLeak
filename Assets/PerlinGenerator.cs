@@ -196,7 +196,23 @@ public class PerlinGenerator : MonoBehaviour
                 float perlinHeight = SampleStepped(x, y) * visualizationHeightScale;
                 
 //                ActiveAlgorithmVisual.transform.position = new Vector3(x,perlinHeight,y);
-                check(x, y, Islands[Random.Range(0,Islands.Length)]);
+
+                float randy = Random.Range(0f, 1f);
+
+                if (0 <= randy && randy < 0.4)
+                {
+                    check(x, y, Islands[0]);
+                }
+                if (0.4 < randy && randy < 0.6)
+                {
+                    check(x, y, Islands[1]);
+                }
+                if (0.6 < randy && randy <= 1)
+                {
+                    check(x, y, Islands[2]);
+                }
+
+//                check(x, y, Islands[Random.Range(0,Islands.Length)]);
 //                check(x, y, Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f));
 //                StartCoroutine(check(x,y, Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f)));
 //                yield return new WaitForFixedUpdate();
@@ -255,11 +271,14 @@ public class PerlinGenerator : MonoBehaviour
                 
                 break;
             case "Rocks":
+
+                float size = Random.Range(0.5f, 1.25f);
                 GameObject clone = Instantiate(
                     visualizationCube, 
-                    new Vector3(x, y, z) + transform.position, transform.rotation
+                    new Vector3(x, seaLevel + size/2, z) + transform.position, transform.rotation
                 );
                 clone.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.gray);
+                clone.transform.localScale = new Vector3(1,size,1);
                 clone.transform.SetParent(visualizationParent.transform);
                 break;
             case "Bedrock":
@@ -268,6 +287,7 @@ public class PerlinGenerator : MonoBehaviour
                     new Vector3(x, y, z) + transform.position, transform.rotation
                 );
                 Bedrock.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.black);
+                Bedrock.transform.localScale = new Vector3(1,1 + y/2,1);
                 Bedrock.transform.SetParent(visualizationParent.transform);
                 
                 break;
