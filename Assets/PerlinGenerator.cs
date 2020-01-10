@@ -33,6 +33,12 @@ public class PerlinGenerator : MonoBehaviour
     private GameObject visualizationParent = null;
     
     private Dictionary<Vector2, Color> nodes = new Dictionary<Vector2, Color>();
+
+    private void Start()
+    {
+        Generate();
+    }
+
     public void Generate()
     {
         if (visualizationParent == null)
@@ -49,7 +55,9 @@ public class PerlinGenerator : MonoBehaviour
         if (visualizeGrid)
         {
 //            StartCoroutine(VisualizeGrid());
-            StartCoroutine(VisualizeGrid_BETTER());
+//            StartCoroutine(VisualizeGrid_BETTER());
+            VisualizeGrid_BETTER();
+//        Debug.Log("Generate!");
         }
     }
 
@@ -166,39 +174,40 @@ public class PerlinGenerator : MonoBehaviour
      // visualizationParent.transform.position = new Vector3(-perlinGridStepSizeX * .5f, -visualizationHeightScale * .5f, -perlinGridStepSizeY * .5f);   
     }
     
-    IEnumerator VisualizeGrid_BETTER()
+    void VisualizeGrid_BETTER()
     {
 
-        ActiveAlgorithmVisual = Instantiate(AlgorithmVisual, transform.position, transform.rotation);
-        ActiveAlgorithmVisual.transform.SetParent(this.transform);
+//        ActiveAlgorithmVisual = Instantiate(AlgorithmVisual, transform.position, transform.rotation);
+//        ActiveAlgorithmVisual.transform.SetParent(this.transform);
         
         // Loop for grid size
         for (int x = 0; x < perlinGridStepSizeX; x++)
         {
             for (int y = 0; y < perlinGridStepSizeY; y++)
             {
-                Debug.Log("Starting new Check");
+//                Debug.Log("Starting new Check");
                 Vector2 current = new Vector2(x, y);
                 float perlinHeight = SampleStepped(x, y) * visualizationHeightScale;
                 
-                ActiveAlgorithmVisual.transform.position = new Vector3(x,perlinHeight,y);
-                
-                
-                StartCoroutine(check(x,y, Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f)));
+//                ActiveAlgorithmVisual.transform.position = new Vector3(x,perlinHeight,y);
+
+                check(x, y, Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f));
+//                StartCoroutine(check(x,y, Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f)));
 //                yield return new WaitForFixedUpdate();
-                yield return null;
+//                yield return null;
             }
         }
+        Debug.Log("Done");
     }
 
-    IEnumerator check(int x, int y, Color islandType)
+    void check(int x, int y, Color islandType)
     {
 //        yield return new WaitForSecondsRealtime(0.1f);
-        yield return null;
+//        yield return null;
         Vector2 current = new Vector2(x,y);
         float perlinHeight = SampleStepped(x, y) * visualizationHeightScale;
         
-        ActiveAlgorithmVisual.transform.position = new Vector3(x,perlinHeight,y);
+//        ActiveAlgorithmVisual.transform.position = new Vector3(x,perlinHeight,y);
         
         if (!(nodes.ContainsKey(current) || perlinHeight < seaLevel))
         {
@@ -212,13 +221,14 @@ public class PerlinGenerator : MonoBehaviour
                 {
                     if ((i >= 0 && i <= perlinGridStepSizeX) && (j >= 0 && j <= perlinGridStepSizeY) && new Vector2(i,j) != current)
                     {
-                        StartCoroutine(check(i, j, islandType));
+//                        StartCoroutine(check(i, j, islandType));
+                        check(i, j, islandType);
                     }
                 }
             }
         }
         
-        Debug.Log("Done checking");
+//        Debug.Log("Done checking");
     }
 
     void GenCube(float x, float y, float z, Color color)
@@ -229,6 +239,7 @@ public class PerlinGenerator : MonoBehaviour
             );
         clone.GetComponent<MeshRenderer>().material.SetColor("_Color", color);
         clone.transform.SetParent(visualizationParent.transform);
+//        Debug.Log("X: " + x + " Y: " + y + " Z: " + z + " Color: " + color);
     }
     
     private float SampleStepped(int x, int y)
